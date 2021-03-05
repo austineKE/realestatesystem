@@ -1,0 +1,138 @@
+DROP DATABASE IF EXISTS realestatesystem;
+CREATE DATABASE realestatesystem;
+
+CREATE TABLE region(
+   ID   INT    NOT NULL,
+   description VARCHAR(255),
+   PRIMARY KEY (ID)
+);
+
+CREATE TABLE property(
+   ID  INT,
+   image VARCHAR(255),
+location VARCHAR(255),
+title_deed VARCHAR(255),
+   PRIMARY KEY (ID)
+);
+
+CREATE TABLE customer(
+   ID   INT    NOT NULL,
+   username VARCHAR(255),
+firstname VARCHAR(255),
+lastname VARCHAR(255),
+phonenumber int,
+password VARCHAR(255),
+   PRIMARY KEY (ID)
+);
+
+CREATE TABLE role(
+   ID   INT    NOT NULL,
+   role_name VARCHAR(255),
+   PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE landlord(
+   ID   INT    NOT NULL,
+   username VARCHAR (255),
+ firstname VARCHAR (255),
+ lastname VARCHAR (255),
+ phonumber INT (10),
+   password VARCHAR(255),
+   PRIMARY KEY (ID, username),
+CONSTRAINT FK_role_landlord FOREIGN KEY (ID)
+    REFERENCES role(ID)
+);
+
+ CREATE TABLE agent(
+   ID   INT    NOT NULL,
+   username VARCHAR (255),
+ firstname VARCHAR (255),
+ lastname VARCHAR (255),
+ phonumber INT (10),
+   password VARCHAR(255),
+   PRIMARY KEY (ID, username),
+CONSTRAINT FK_role_agent FOREIGN KEY (ID)
+    REFERENCES role(ID),
+CONSTRAINT FK_region_agent FOREIGN KEY (ID)
+    REFERENCES region(ID),
+CONSTRAINT FK_plot_agent FOREIGN KEY (ID)
+    REFERENCES plots(id)
+);
+
+ CREATE TABLE users(
+   ID   INT    NOT NULL,
+   username VARCHAR (255),
+ firstname VARCHAR (255),
+ lastname VARCHAR (255),
+ phonumber INT (10),
+   password VARCHAR(255),
+   PRIMARY KEY (ID, username),
+CONSTRAINT FK_role_user FOREIGN KEY (ID)
+    REFERENCES role(ID),
+CONSTRAINT FK_rooms_users FOREIGN KEY (ID)
+    REFERENCES rooms(room_number),
+CONSTRAINT FK_plots_users FOREIGN KEY (ID)
+    REFERENCES plots(id)
+);
+
+ CREATE TABLE posts(
+   ID   INT    NOT NULL,
+   description VARCHAR(255),
+image VARCHAR(255),
+post_time timestamp DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY (ID),
+CONSTRAINT FK_property_post FOREIGN KEY (ID)
+    REFERENCES property(ID),
+CONSTRAINT FK_plots_user FOREIGN KEY (ID)
+    REFERENCES plots(id)
+);
+
+
+ CREATE TABLE comments(
+   ID   INT    NOT NULL,
+   description VARCHAR(255),
+comment_time timestamp DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY (ID),
+CONSTRAINT FK_post_comment FOREIGN KEY (ID)
+    REFERENCES posts(ID)
+);
+
+ CREATE TABLE rooms(
+   room_number INT,
+   description VARCHAR(255),
+image VARCHAR(255),
+   PRIMARY KEY (room_number),
+CONSTRAINT FK_plots_room FOREIGN KEY (room_number)
+    REFERENCES plots(id)
+);
+
+ CREATE TABLE plots(
+   id INT,
+   description VARCHAR(255),
+   PRIMARY KEY (id)
+);
+
+ CREATE TABLE payments(
+   ID   INT    NOT NULL,
+   amount VARCHAR(255),
+payment_type VARCHAR(255),
+pay_time timestamp DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY (ID),
+CONSTRAINT FK_users_payments FOREIGN KEY (ID)
+    REFERENCES users(ID)
+);
+
+
+CREATE TABLE seller(
+   ID   INT    NOT NULL,
+   username VARCHAR(255),
+firstname VARCHAR(255),
+lastname VARCHAR(255),
+phonenumber int,
+password VARCHAR(255),
+   PRIMARY KEY (ID, username),
+CONSTRAINT FK_region_seller FOREIGN KEY (ID)
+    REFERENCES region(ID)
+);
+
