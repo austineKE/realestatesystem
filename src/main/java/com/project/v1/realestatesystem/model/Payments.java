@@ -1,14 +1,21 @@
 package com.project.v1.realestatesystem.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "payments")
 public class Payments {
     @Id
+    @Column(name = "ID")
     private String ID;
+    @Column(name = "amount")
     private String amount;
+    @Column(name = "payment_type")
     private String paymentType;
+    @Column(name = "pay_time")
     private String payTime;
 
     public Payments() {

@@ -1,14 +1,19 @@
 package com.project.v1.realestatesystem.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "comments")
 public class Comments {
     @Id
+    @Column(name = "ID")
     private int ID;
+    @Column(name = "description")
     private String description;
+    @Column(name = "comment_time")
     private String commentTime;
+    @ManyToOne
+    @JoinColumn(name = "ID", referencedColumnName = "ID")
     private Posts post;
 
     public Comments() {

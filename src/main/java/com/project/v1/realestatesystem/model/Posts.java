@@ -1,21 +1,28 @@
 package com.project.v1.realestatesystem.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "posts")
 public class Posts {
     @Id
+    @Column(name = "ID")
     private int ID;
+    @Column(name = "description ")
     private String description;
+    @Column(name = "image ")
     private String image;
+    @Column(name = "post_time")
     private String postTime;
-    private Property property;
+    @OneToMany(mappedBy = "posts")
+    @JoinColumn(name = "ID", referencedColumnName = "ID")
+    private List<Property> property;
 
     public Posts() {
     }
 
-    public Posts(int ID, String description, String image, String postTime, Property property) {
+    public Posts(int ID, String description, String image, String postTime, List<Property> property) {
         this.ID = ID;
         this.description = description;
         this.image = image;
@@ -55,11 +62,11 @@ public class Posts {
         this.postTime = postTime;
     }
 
-    public Property getProperty() {
+    public List<Property> getProperty() {
         return property;
     }
 
-    public void setProperty(Property property) {
+    public void setProperty(List<Property> property) {
         this.property = property;
     }
 }

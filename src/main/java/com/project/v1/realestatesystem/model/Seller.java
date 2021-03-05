@@ -1,24 +1,34 @@
 package com.project.v1.realestatesystem.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "seller")
 public class Seller {
     @Id
+    @Column(name = "ID")
     private int ID;
+    @Column(name = "username")
     private String userName;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
+    @Column(name = "phonenumber")
     private int phoneNumber;
+    @Column(name = "password")
     private String password;
+    @Column(name = "property_type")
     private String propertyType;
-    private Regions region;
+    @ManyToMany(mappedBy = "seller")
+    @JoinColumn(name = "ID", referencedColumnName = "ID")
+    private List<Regions> region;
 
     public Seller() {
     }
 
-    public Seller(int ID, String userName, String firstName, String lastName, int phoneNumber, String password, String propertyType, Regions region) {
+    public Seller(int ID, String userName, String firstName, String lastName, int phoneNumber, String password, String propertyType, List<Regions> region) {
         this.ID = ID;
         this.userName = userName;
         this.firstName = firstName;
@@ -85,11 +95,11 @@ public class Seller {
         this.propertyType = propertyType;
     }
 
-    public Regions getRegion() {
+    public List<Regions> getRegion() {
         return region;
     }
 
-    public void setRegion(Regions region) {
+    public void setRegion(List<Regions> region) {
         this.region = region;
     }
 }

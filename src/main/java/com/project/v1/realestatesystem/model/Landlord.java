@@ -1,17 +1,25 @@
 package com.project.v1.realestatesystem.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "landlord")
 public class Landlord {
     @Id
+    @Column(name = "ID")
     private int ID;
+    @Column(name = "username")
     private String userName;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
+    @Column(name = "phonumber")
     private int phoneNumber;
+    @OneToOne(mappedBy = "landlord")
+    @JoinColumn(name = "ID", referencedColumnName = "ID")
     private Role role;
+    @Column(name = "password")
     private String password;
 
     public Landlord() {

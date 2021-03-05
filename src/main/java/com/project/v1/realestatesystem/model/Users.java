@@ -1,25 +1,38 @@
 package com.project.v1.realestatesystem.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class Users {
     @Id
+    @Column(name = "ID")
     private int ID;
+    @Column(name = "username")
     private String userName;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
+    @OneToOne(mappedBy = "users")
+    @JoinColumn(name = "ID", referencedColumnName = "room_number")
     private Rooms roomNumber;
+    @Column(name = "phonumber")
     private int phoneNumber;
+    @OneToOne(mappedBy = "users")
+    @JoinColumn(name = "ID", referencedColumnName = "ID")
     private Role role;
+    @Column(name = "password")
     private String password;
-    private Plots plot;
+    @OneToMany(mappedBy = "users")
+    @JoinColumn(name = "ID", referencedColumnName = "id")
+    private List<Plots> plot;
 
     public Users() {
     }
 
-    public Users(int ID, String userName, String firstName, String lastName, Rooms roomNumber, int phoneNumber, Role role, String password, Plots plot) {
+    public Users(int ID, String userName, String firstName, String lastName, Rooms roomNumber, int phoneNumber, Role role, String password, List<Plots> plot) {
         this.ID = ID;
         this.userName = userName;
         this.firstName = firstName;
@@ -95,11 +108,11 @@ public class Users {
         this.password = password;
     }
 
-    public Plots getPlot() {
+    public List<Plots> getPlot() {
         return plot;
     }
 
-    public void setPlot(Plots plot) {
+    public void setPlot(List<Plots> plot) {
         this.plot = plot;
     }
 }

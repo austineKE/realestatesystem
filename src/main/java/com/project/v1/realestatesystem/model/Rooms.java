@@ -1,14 +1,19 @@
 package com.project.v1.realestatesystem.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "rooms")
 public class Rooms {
     @Id
+    @Column(name = "room_number")
     private int roomNumber;
+    @Column(name = "description")
     private String description;
+    @Column(name = "image")
     private String image;
+    @ManyToOne
+    @JoinColumn(name = "room_number", referencedColumnName = "id")
     private Plots plot;
 
     public Rooms() {
